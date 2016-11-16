@@ -39,6 +39,7 @@ group :development, :test do
   gem 'pry-nav'
   gem 'pry-stack_explorer'
   gem 'rspec-rails'
+  gem 'guard-rspec', require: false
 end
 
 group :development do
