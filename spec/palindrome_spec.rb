@@ -10,4 +10,5 @@ describe Palindrome do
 
   it { expect(subject.next -1).to eq 0 }
   it { expect(subject.next -1123).to eq 0 }
+  it { expect(subject.next "".to_i).to eq 1 }
 end
