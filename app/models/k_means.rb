@@ -1,31 +1,17 @@
 class KMeans
-  def initialize(male_attributes, female_attributes, other_attributes, training_data)
-    @training_data = training_data
-
-    @attributes = {
-        male: male_attributes,
-        female: female_attributes,
-        other: other_attributes
-    }
+  def initialize(k, training_data)
+    @categories = (0..k-1).map{|category| [category, training_data[category]]}
   end
 
-  def evaluate(data)
-    {
-        male: matches(@attributes[:male], data),
-        female: matches(@attributes[:female], data),
-        other: matches(@attributes[:other], data)
-    }
+  def category(item)
+    @categories.map{|category, average| [category, distance_between(item, average)]}
+        .inject{|closest, distance| closest.last < distance.last ? closest : distance}
+        .first
   end
 
-  def matches(matching_attributes, data)
-    data.select { |item| item[matching_attributes.first] >= 5 }
+  def distance_between(point_a, point_b)
+    squares_of_distance = point_a.zip(point_b).map{|a, b| (a-b)**2 }
+    return Math.sqrt(squares_of_distance.sum)
   end
 
-  def self.distance(a, b)
-    Math.sqrt( (a[0]-b[0])**2  + (a[1]-b[1])**2  + (a[2]-b[2])**2  )
-  end
-
-  def gender(item)
-
-  end
 end
